@@ -1,9 +1,9 @@
 {
-  "name": "react-task_VladislavDulev",
+  "name": "railroad-device-monitoring-dashboard",
   "version": "1.0.0",
   "scripts": {
-    "start:api": "cd API && npm start",
-    "start:app": "cd APP && npm start",
+    "start:api": "cd api && npm start",
+    "start:app": "cd app && npm start",
     "start:project": "concurrently \"npm run start:api\" \"npm run start:app\""
   },
   "devDependencies": {
