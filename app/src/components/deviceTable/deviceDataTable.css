@@ -1,0 +1,39 @@
+* {
+  font-family: "Ubuntu";
+}
+
+.column-header {
+  font-size: 22px;
+  font-weight: 700;
+  font-family: "Ubuntu";
+  color: rgba(59, 130, 246, 1);
+  background-color: rgba(59, 130, 246, 0.2);
+}
+
+.low-battery-wrapper {
+  background-color: rgba(255, 74, 92, 0.2);
+}
+
+.low-battery {
+  background-color: rgba(255, 74, 92);
+}
+
+.medium-battery-wrapper {
+  background-color: rgba(255, 171, 97, 0.2);
+}
+
+.medium-battery {
+  background-color: rgba(255, 171, 97);
+}
+
+.high-battery-wrapper {
+  background-color: rgba(121, 255, 132, 0.2);
+}
+
+.high-battery {
+  background-color: rgba(121, 255, 132);
+}
+
+.no-battery {
+  background-color: rgba(121, 255, 132, 0);
+}
