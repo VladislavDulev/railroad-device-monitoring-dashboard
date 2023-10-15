@@ -1,4 +1,3 @@
-import React from "react";
 import { useRecoilState } from "recoil";
 import { IDeviceData } from "../../constants/interfaces/IDeviceData";
 import fetchData from "../../utils/apiUtils";
@@ -9,6 +8,7 @@ import { Grid } from "@mui/material";
 import { deviceTableColumns } from "./deviceTableColumns";
 import "./deviceDataTable.css";
 import rowStyles from "../../styles";
+import { useEffect } from "react";
 
 const mapDeviceDataToGridRow = (device: IDeviceData) => ({
   id: device.query.id.value || "N/A",
@@ -30,6 +30,12 @@ const DeviceDataTable = ({ openModal }: IDeviceDataTable) => {
 
   const gridRows = deviceData.map(mapDeviceDataToGridRow);
 
+  useEffect(() => {
+    if (data) {
+      setDeviceData(data);
+    }
+  }, [data, setDeviceData]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -37,9 +43,6 @@ const DeviceDataTable = ({ openModal }: IDeviceDataTable) => {
   if (error) {
     return <div>Error</div>;
   }
-
-  const devices = data || [];
-  setDeviceData(devices);
 
   const columns = deviceTableColumns(openModal);
 

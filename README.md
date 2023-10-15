@@ -6,15 +6,30 @@ Welcome to the Railroad Device Monitoring Dashboard repository. This project pro
 
 To run the Railroad Device Monitoring Dashboard, follow these steps:
 
-1.  Ensure you have Node.js and npm (or Yarn) installed on your machine.
+1.  Ensure you have Node.js and npm installed on your machine.
 
-2.  Navigate to the root folder of the project (railroad-device-monitoring-dashboard) and run the following command to install dependencies for both the app and the API:
+2.  Navigate to the root folder of the project (railroad-device-monitoring-dashboard) and run the following command to install dependencies for both the app and the api:
 
     ```
         npm install
     ```
 
-3.  After installing the dependencies, start the project using:
+3.  Similarly, when you are inside the "api" and "app" folders, run the following command in each folder to install their respective dependencies:
+
+    - Inside the "api" folder:
+
+      ```
+      npm install
+      ```
+
+    - Inside the "app" folder:
+      ```
+      npm install
+      ```
+
+    This will ensure that each component of the Railroad Device Monitoring Dashboard has its necessary dependencies properly installed.
+
+4.  After installing the dependencies, start the project using:
 
     ```
         npm run start:project

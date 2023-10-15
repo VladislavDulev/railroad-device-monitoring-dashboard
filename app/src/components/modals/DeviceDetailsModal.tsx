@@ -13,7 +13,7 @@ import "./deviceDetailsModal.css";
 
 interface IDeviceDetailsModal {
   open: boolean;
-  onClose: (e: MouseEvent<HTMLButtonElement>) => void;
+  onClose: () => void;
   deviceId: string;
 }
 
@@ -60,7 +60,7 @@ const DeviceDetailsModal = ({
         <h3 className="text-lg font-black text-gray-800">
           {getDisplayName(key)}
         </h3>
-        <p className="text-sm text-gray-500">
+        <div className="text-sm text-gray-500">
           {key === DevicePropEnum.BARRIER_MESSAGE_BATCH &&
           barrierMessageBatch ? (
             <BarrierMessageBatchContent messageContent={barrierMessageBatch} />
@@ -74,7 +74,7 @@ const DeviceDetailsModal = ({
           ) : (
             renderValue(currentDevice.lastData.content[key])
           )}
-        </p>
+        </div>
       </div>
     )
   );
