@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from "react-query";
 import DeviceDetailsModal from "./components/modals/DeviceDetailsModal";
 import { useState } from "react";
-import DeviceDataTable from "./components/deviceTable/DeviceDataTable";
+import DeviceDataTable from "./components/deviceDataTable/DeviceDataTable";
 
 const queryClient = new QueryClient();
 
