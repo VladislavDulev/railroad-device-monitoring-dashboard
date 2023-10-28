@@ -8,7 +8,7 @@ import { Grid } from "@mui/material";
 import { deviceTableColumns } from "./deviceTableColumns";
 import "./deviceDataTable.css";
 import rowStyles from "../../styles";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const mapDeviceDataToGridRow = (device: IDeviceData) => ({
   id: device.query.id.value || "N/A",
@@ -25,8 +25,8 @@ interface IDeviceDataTable {
 
 const DeviceDataTable = ({ openModal }: IDeviceDataTable) => {
   const { data, error, isLoading } = useQuery("devices", fetchData);
-
   const [deviceData, setDeviceData] = useRecoilState(deviceDataState);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const gridRows = deviceData.map(mapDeviceDataToGridRow);
 
@@ -54,9 +54,14 @@ const DeviceDataTable = ({ openModal }: IDeviceDataTable) => {
           rows={gridRows}
           getRowId={(row) => row.id}
           autoHeight
-          pagination
           sx={{ fontSize: "18px", padding: "10px" }}
           initialState={{ pinnedColumns: { right: ["actions"] } }}
+          onSortModelChange={() => {
+            setCurrentPage(0);
+          }}
+          pagination
+          page={currentPage}
+          onPageChange={(newPage) => setCurrentPage(newPage)}
         />
       </Grid>
     </>
