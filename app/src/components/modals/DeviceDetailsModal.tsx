@@ -1,4 +1,3 @@
-import { MouseEvent, ReactNode } from "react";
 import { useRecoilValue } from "recoil";
 import { deviceDataState } from "../../state/recoil";
 import { IDeviceData } from "../../constants/interfaces/IDeviceData";
@@ -28,15 +27,6 @@ const DeviceDetailsModal = ({
     return deviceData.find((device) => device.lastData.id === id);
   };
 
-  const renderValue = (value: any) => {
-    if (typeof value === "number") {
-      return value.toString();
-    } else if (typeof value === "boolean") {
-      return value ? "true" : "false";
-    }
-    return value;
-  };
-
   const currentDevice = findDeviceById(deviceId, deviceData);
 
   if (!currentDevice) {
@@ -47,6 +37,15 @@ const DeviceDetailsModal = ({
       </div>
     );
   }
+
+  const renderValue = (value: any) => {
+    if (typeof value === "number") {
+      return value.toString();
+    } else if (typeof value === "boolean") {
+      return value ? "true" : "false";
+    }
+    return value;
+  };
 
   const barrierMessageBatch =
     currentDevice.lastData.content.barrierMessageBatch;
@@ -91,7 +90,6 @@ const DeviceDetailsModal = ({
         }`}
       >
         <CloseButton onClose={onClose} />
-
         <div className="mt-4">{modalContent}</div>
         <CancelButton onClose={onClose} />
       </div>

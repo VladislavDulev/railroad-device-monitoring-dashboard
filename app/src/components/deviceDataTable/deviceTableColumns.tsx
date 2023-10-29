@@ -1,5 +1,6 @@
 import IconButton from "@mui/material/IconButton";
 import { Info } from "react-feather";
+import { StringConstants } from "../../constants/types/StringConstants";
 
 export const deviceTableColumns = (openModal: (id: string) => void) => [
   {
@@ -46,7 +47,9 @@ export const deviceTableColumns = (openModal: (id: string) => void) => [
           paddingBottom: "5px",
         }}
       >
-        {params.value === "N/A" ? `${params.value}` : `${params.value}%`}
+        {params.value === StringConstants.NotAvailable
+          ? `${params.value}`
+          : `${params.value}%`}
       </div>
     ),
   },

@@ -1,5 +1,7 @@
+import { MouseEvent } from "react";
+
 interface ICloseButton {
-  onClose: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onClose: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const CloseButton = ({ onClose }: ICloseButton) => {

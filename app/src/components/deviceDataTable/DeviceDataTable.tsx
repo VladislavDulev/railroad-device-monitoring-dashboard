@@ -9,14 +9,16 @@ import { deviceTableColumns } from "./deviceTableColumns";
 import "./deviceDataTable.css";
 import rowStyles from "../../styles";
 import { useEffect, useState } from "react";
+import { StringConstants } from "../../constants/types/StringConstants";
 
 const mapDeviceDataToGridRow = (device: IDeviceData) => ({
-  id: device.query.id.value || "N/A",
-  fCntUp: device.lastData.content.fCntUp || "N/A",
-  barrierId: device.lastData.content.meta?.barrierId || "N/A",
-  battery: device.lastData.content.battery || "N/A",
-  lat: device.lastData.content.lat || "N/A",
-  lng: device.lastData.content.lng || "N/A",
+  id: device.query.id.value || StringConstants.NotAvailable,
+  fCntUp: device.lastData.content.fCntUp || StringConstants.NotAvailable,
+  barrierId:
+    device.lastData.content.meta?.barrierId || StringConstants.NotAvailable,
+  battery: device.lastData.content.battery || StringConstants.NotAvailable,
+  lat: device.lastData.content.lat || StringConstants.NotAvailable,
+  lng: device.lastData.content.lng || StringConstants.NotAvailable,
 });
 
 interface IDeviceDataTable {

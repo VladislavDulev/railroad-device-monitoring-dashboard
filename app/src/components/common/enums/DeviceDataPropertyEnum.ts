@@ -1,4 +1,4 @@
-export enum DeviceDataProperty {
+export enum DeviceDataPropertyEnum {
   BARRIER_ID = "barrierId",
   MESSAGE_TYPE = "messageType",
   BATTERY = "battery",

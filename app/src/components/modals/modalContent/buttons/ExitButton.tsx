@@ -1,7 +1,8 @@
+import { MouseEvent } from "react";
 import { X } from "react-feather";
 
 interface IExitButton {
-  onClose: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onClose: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const ExitButton = ({ onClose }: IExitButton) => {

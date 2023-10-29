@@ -1,4 +1,5 @@
 import IDeviceBarrierMessageBatch from "../../../constants/interfaces/IDeviceBarrierMessageBatch";
+import ShowMoreButton from "./buttons/ShowMoreButton";
 
 interface IBarrierMessageBatchContent {
   messageContent: IDeviceBarrierMessageBatch;
@@ -7,15 +8,19 @@ interface IBarrierMessageBatchContent {
 const BarrierMessageBatchContent = ({
   messageContent,
 }: IBarrierMessageBatchContent) => {
-  return (
-    <div>
-      {messageContent?.messages?.map((message, index) => (
-        <div key={index}>
-          <p>Type: {message.type}</p>
-          <p>UTC Time: {message.utcTime}</p>
-        </div>
-      ))}
+  const renderMessageBatchContent = (message: any, index: number) => (
+    <div key={index}>
+      <p>Type: {message.type}</p>
+      <p>UTC Time: {message.utcTime}</p>
     </div>
+  );
+
+  return (
+    <ShowMoreButton
+      items={messageContent?.messages}
+      maxItems={2}
+      renderText={renderMessageBatchContent}
+    />
   );
 };
 
