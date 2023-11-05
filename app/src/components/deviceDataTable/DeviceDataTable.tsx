@@ -10,6 +10,7 @@ import "./deviceDataTable.css";
 import rowStyles from "../../styles";
 import { useEffect, useState } from "react";
 import { StringConstants } from "../../constants/types/StringConstants";
+import LoaderComponent from "../loader/Loader";
 
 const mapDeviceDataToGridRow = (device: IDeviceData) => ({
   id: device.query.id.value || StringConstants.NotAvailable,
@@ -29,19 +30,38 @@ const DeviceDataTable = ({ openModal }: IDeviceDataTable) => {
   const { data, error, isLoading } = useQuery("devices", fetchData);
   const [deviceData, setDeviceData] = useRecoilState(deviceDataState);
   const [currentPage, setCurrentPage] = useState(0);
+  const [showLoading, setShowLoading] = useState(true);
 
   const gridRows = deviceData.map(mapDeviceDataToGridRow);
+
+  const getContainerClassName = () => {
+    if (isLoading || showLoading) {
+      return "center-container";
+    } else {
+      return "";
+    }
+  };
+
+  const fakeDataLoading = (loadingDuration: number) => {
+    setTimeout(() => setShowLoading(false), loadingDuration);
+  };
 
   useEffect(() => {
     if (data) {
       setDeviceData(data);
+      fakeDataLoading(2000);
     }
   }, [data, setDeviceData]);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (isLoading || showLoading) {
+    return (
+      <div className={getContainerClassName()}>
+        <LoaderComponent />
+      </div>
+    );
   }
 
+  //Add toastr to handle the errors
   if (error) {
     return <div>Error</div>;
   }
