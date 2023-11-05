@@ -9,6 +9,7 @@ import CloseButton from "./modalContent/buttons/ExitButton";
 import CancelButton from "./modalContent/buttons/CloseButton";
 import getDisplayName from "../../utils/helpers";
 import "./deviceDetailsModal.css";
+import { useEffect, useRef } from "react";
 
 interface IDeviceDetailsModal {
   open: boolean;
@@ -22,12 +23,34 @@ const DeviceDetailsModal = ({
   deviceId,
 }: IDeviceDetailsModal) => {
   const deviceData = useRecoilValue(deviceDataState);
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   const findDeviceById = (id: string, deviceData: IDeviceData[]) => {
     return deviceData.find((device) => device.lastData.id === id);
   };
 
   const currentDevice = findDeviceById(deviceId, deviceData);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        onClose();
+      }
+    };
+
+    if (open) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [open, onClose]);
 
   if (!currentDevice) {
     return (
@@ -85,6 +108,7 @@ const DeviceDetailsModal = ({
       } `}
     >
       <div
+        ref={modalRef}
         className={`bg-white rounded-xl shadow p-6 transition-all overflow-y-auto no-scrollbar modal-content ${
           open ? "scale-100 opacity-100" : "scale-125 opacity-0"
         }`}
