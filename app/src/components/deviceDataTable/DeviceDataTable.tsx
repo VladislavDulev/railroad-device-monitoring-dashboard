@@ -1,8 +1,12 @@
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { IDeviceData } from "../../constants/interfaces/IDeviceData";
 import fetchData from "../../utils/apiUtils";
 import { useQuery } from "react-query";
-import { deviceDataState } from "../../state/recoil";
+import {
+  deviceDataState,
+  filteredDeviceDataState,
+  loadingState,
+} from "../../state/recoil";
 import { DataGridPro } from "@mui/x-data-grid-pro";
 import { Grid } from "@mui/material";
 import { deviceTableColumns } from "./deviceTableColumns";
@@ -11,6 +15,7 @@ import rowStyles from "../../styles";
 import { useEffect, useState } from "react";
 import { StringConstants } from "../../constants/types/StringConstants";
 import LoaderComponent from "../loader/Loader";
+import { getLoadingContainerClassName } from "../../utils/helpers";
 
 const mapDeviceDataToGridRow = (device: IDeviceData) => ({
   id: device.query.id.value || StringConstants.NotAvailable,
@@ -27,41 +32,42 @@ interface IDeviceDataTable {
 }
 
 const DeviceDataTable = ({ openModal }: IDeviceDataTable) => {
-  const { data, error, isLoading } = useQuery("devices", fetchData);
-  const [deviceData, setDeviceData] = useRecoilState(deviceDataState);
+  const { data, error } = useQuery("devices", fetchData);
+
+  const [devicesData, setDevicesData] = useRecoilState(deviceDataState);
+  const filteredDeviceData = useRecoilValue(filteredDeviceDataState);
   const [currentPage, setCurrentPage] = useState(0);
-  const [showLoading, setShowLoading] = useState(true);
+  const [, setLoadingState] = useRecoilState(loadingState);
 
-  const gridRows = deviceData.map(mapDeviceDataToGridRow);
+  const isLoadingData = useRecoilValue(loadingState);
 
-  const getContainerClassName = () => {
-    if (isLoading || showLoading) {
-      return "center-container";
-    } else {
-      return "";
-    }
-  };
+  const gridRows =
+    filteredDeviceData.length < devicesData.length
+      ? filteredDeviceData.map(mapDeviceDataToGridRow)
+      : devicesData.map(mapDeviceDataToGridRow);
 
   const fakeDataLoading = (loadingDuration: number) => {
-    setTimeout(() => setShowLoading(false), loadingDuration);
+    setTimeout(() => {
+      setLoadingState(false);
+    }, loadingDuration);
   };
 
   useEffect(() => {
     if (data) {
-      setDeviceData(data);
+      setDevicesData(data);
       fakeDataLoading(2000);
     }
-  }, [data, setDeviceData]);
+  }, [data, setDevicesData]);
 
-  if (isLoading || showLoading) {
+  if (isLoadingData) {
     return (
-      <div className={getContainerClassName()}>
+      <div className={getLoadingContainerClassName(isLoadingData)}>
         <LoaderComponent />
       </div>
     );
   }
 
-  //Add toastr to handle the errors
+  //Add toasts to handle the errors
   if (error) {
     return <div>Error</div>;
   }

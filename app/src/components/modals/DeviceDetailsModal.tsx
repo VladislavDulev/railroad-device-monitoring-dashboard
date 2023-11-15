@@ -22,14 +22,15 @@ const DeviceDetailsModal = ({
   onClose,
   deviceId,
 }: IDeviceDetailsModal) => {
-  const deviceData = useRecoilValue(deviceDataState);
+  const devicesData = useRecoilValue(deviceDataState);
+
   const modalRef = useRef<HTMLDivElement | null>(null);
 
-  const findDeviceById = (id: string, deviceData: IDeviceData[]) => {
-    return deviceData.find((device) => device.lastData.id === id);
+  const findDeviceById = (id: string, devicesData: IDeviceData[]) => {
+    return devicesData.find((devicesData) => devicesData.lastData.id === id);
   };
 
-  const currentDevice = findDeviceById(deviceId, deviceData);
+  const currentDevice = findDeviceById(deviceId, devicesData);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

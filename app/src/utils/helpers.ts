@@ -92,3 +92,11 @@ const getDisplayName = (key: string): string => {
 };
 
 export default getDisplayName;
+
+export const getLoadingContainerClassName = (isLoading: boolean) => {
+  if (isLoading) {
+    return "center-container";
+  } else {
+    return "";
+  }
+};

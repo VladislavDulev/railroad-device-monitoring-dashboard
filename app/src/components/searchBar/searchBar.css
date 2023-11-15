@@ -1,0 +1,30 @@
+.search-field {
+  width: 364px;
+  height: 52px;
+  background: rgba(239.82, 237.36, 255, 0.8);
+  border-radius: 10px;
+  margin: 20px 0 20px 11px;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.search-field input {
+  border: transparent;
+  outline: none;
+  padding-top: 13px;
+  padding-left: 20px;
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 16px;
+  font-family: "Ubuntu";
+  font-weight: 400;
+  background: transparent;
+  width: 100%;
+}
+
+.search-icon {
+  margin-left: 10px;
+  margin-top: 14px;
+}

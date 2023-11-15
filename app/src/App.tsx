@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import DeviceDetailsModal from "./components/modals/DeviceDetailsModal";
 import { useState } from "react";
 import DeviceDataTable from "./components/deviceDataTable/DeviceDataTable";
+import SearchInput from "./components/searchBar/SearchBar";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <SearchInput />
       <DeviceDataTable openModal={openModal} />
       {open && (
         <DeviceDetailsModal
