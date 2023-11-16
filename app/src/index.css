@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --main-background-color: rgb(28, 29, 36);
+  --main-background-color-lighter: rgba(30, 60, 90, 0.8);
+}
+
 body {
   margin: 0;
   font-family: "Ubuntu", sans-serif;

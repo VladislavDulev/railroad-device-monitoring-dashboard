@@ -1,0 +1,13 @@
+@import "../src/index.css";
+
+.App {
+  transition: background-color 0.3s ease;
+}
+
+.App.light {
+  background-color: white;
+}
+
+.App.dark {
+  background-color: var(--main-background-color);
+}

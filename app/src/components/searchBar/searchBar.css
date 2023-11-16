@@ -1,9 +1,19 @@
+@import "../../index.css";
+
 .search-field {
   width: 364px;
   height: 52px;
-  background: rgba(239.82, 237.36, 255, 0.8);
   border-radius: 10px;
   margin: 20px 0 20px 11px;
+}
+
+.dark-mode {
+  background-color: var(--main-background-color-lighter);
+  color: aliceblue;
+}
+
+.light-mode {
+  background-color: rgba(239.82, 237.36, 255, 0.8);
 }
 
 .search-container {
@@ -16,12 +26,19 @@
   outline: none;
   padding-top: 13px;
   padding-left: 20px;
-  color: rgba(0, 0, 0, 0.87);
   font-size: 16px;
   font-family: "Ubuntu";
   font-weight: 400;
   background: transparent;
   width: 100%;
+}
+
+.dark-mode .input {
+  color: white;
+}
+
+.light-mode .input {
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .search-icon {

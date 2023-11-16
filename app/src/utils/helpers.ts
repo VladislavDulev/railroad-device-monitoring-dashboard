@@ -1,4 +1,5 @@
 import { DeviceDataPropertyEnum } from "../components/common/enums/DeviceDataPropertyEnum";
+import { ThemeModeEnum } from "../components/common/enums/ThemeModeEnum";
 
 const getDisplayName = (key: string): string => {
   switch (key) {
@@ -99,4 +100,26 @@ export const getLoadingContainerClassName = (isLoading: boolean) => {
   } else {
     return "";
   }
+};
+
+export const getColorStyles = (
+  currentThemeMode: string,
+  lightMode: any,
+  darkMode: any
+) => {
+  const { DARK_MODE } = ThemeModeEnum;
+  return currentThemeMode === DARK_MODE ? darkMode : lightMode;
+};
+
+export const getFontColor = (currentThemeMode: string) => {
+  const lightModeFont = "rgba(0, 0, 0, 0.87)";
+  const darkModeFont = "rgba(255, 255, 255, 0.87)";
+
+  const fontColor = getColorStyles(
+    currentThemeMode,
+    lightModeFont,
+    darkModeFont
+  );
+
+  return fontColor;
 };

@@ -17,6 +17,8 @@ interface IShowMoreButton {
 }
 
 const ShowMoreButton = ({ items, maxItems, renderText }: IShowMoreButton) => {
+  const { SHOW_LESS, SHOW_MORE } = StringConstants;
+
   const [showAll, setShowAll] = useState(false);
 
   const itemsToDisplay = showAll ? items : items.slice(0, maxItems);
@@ -32,7 +34,7 @@ const ShowMoreButton = ({ items, maxItems, renderText }: IShowMoreButton) => {
           onClick={() => setShowAll(!showAll)}
           className="text-xs uppercase mt-2  text-blue-500 "
         >
-          {showAll ? StringConstants.ShowLess : StringConstants.ShowMore}
+          {showAll ? SHOW_LESS : SHOW_MORE}
         </button>
       )}
     </div>

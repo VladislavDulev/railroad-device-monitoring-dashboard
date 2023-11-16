@@ -5,7 +5,9 @@ import { useQuery } from "react-query";
 import {
   deviceDataState,
   filteredDeviceDataState,
+  isDarkModeSelector,
   loadingState,
+  themeModeSelector,
 } from "../../state/recoil";
 import { DataGridPro } from "@mui/x-data-grid-pro";
 import { Grid } from "@mui/material";
@@ -18,13 +20,13 @@ import LoaderComponent from "../loader/Loader";
 import { getLoadingContainerClassName } from "../../utils/helpers";
 
 const mapDeviceDataToGridRow = (device: IDeviceData) => ({
-  id: device.query.id.value || StringConstants.NotAvailable,
-  fCntUp: device.lastData.content.fCntUp || StringConstants.NotAvailable,
+  id: device.query.id.value || StringConstants.NOT_AVAILABLE,
+  fCntUp: device.lastData.content.fCntUp || StringConstants.NOT_AVAILABLE,
   barrierId:
-    device.lastData.content.meta?.barrierId || StringConstants.NotAvailable,
-  battery: device.lastData.content.battery || StringConstants.NotAvailable,
-  lat: device.lastData.content.lat || StringConstants.NotAvailable,
-  lng: device.lastData.content.lng || StringConstants.NotAvailable,
+    device.lastData.content.meta?.barrierId || StringConstants.NOT_AVAILABLE,
+  battery: device.lastData.content.battery || StringConstants.NOT_AVAILABLE,
+  lat: device.lastData.content.lat || StringConstants.NOT_AVAILABLE,
+  lng: device.lastData.content.lng || StringConstants.NOT_AVAILABLE,
 });
 
 interface IDeviceDataTable {
@@ -35,11 +37,13 @@ const DeviceDataTable = ({ openModal }: IDeviceDataTable) => {
   const { data, error } = useQuery("devices", fetchData);
 
   const [devicesData, setDevicesData] = useRecoilState(deviceDataState);
-  const filteredDeviceData = useRecoilValue(filteredDeviceDataState);
-  const [currentPage, setCurrentPage] = useState(0);
   const [, setLoadingState] = useRecoilState(loadingState);
+  const [currentPage, setCurrentPage] = useState(0);
 
+  const filteredDeviceData = useRecoilValue(filteredDeviceDataState);
+  const currentThemeMode = useRecoilValue(themeModeSelector);
   const isLoadingData = useRecoilValue(loadingState);
+  const isDarkMode = useRecoilValue(isDarkModeSelector);
 
   const gridRows =
     filteredDeviceData.length < devicesData.length
@@ -72,11 +76,14 @@ const DeviceDataTable = ({ openModal }: IDeviceDataTable) => {
     return <div>Error</div>;
   }
 
-  const columns = deviceTableColumns(openModal);
+  const columns = deviceTableColumns(openModal, currentThemeMode, isDarkMode);
 
   return (
     <>
-      <Grid className="table-wrapper" sx={rowStyles}>
+      <Grid
+        className="table-wrapper"
+        sx={rowStyles(currentThemeMode, isDarkMode)}
+      >
         <DataGridPro
           columns={columns}
           rows={gridRows}

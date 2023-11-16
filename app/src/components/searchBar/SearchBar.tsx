@@ -3,16 +3,16 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import {
   deviceDataState,
   filteredDeviceDataState,
+  isDarkModeSelector,
   loadingState,
 } from "../../state/recoil";
 import "./searchBar.css";
 import SearchIcon from "@mui/icons-material/Search";
-import { getLoadingContainerClassName } from "../../utils/helpers";
-import LoaderComponent from "../loader/Loader";
 
 const SearchInput = () => {
   const deviceData = useRecoilValue(deviceDataState);
   const isLoadingData = useRecoilValue(loadingState);
+  const isDarkMode = useRecoilValue(isDarkModeSelector);
 
   const [, setFilteredDeviceData] = useRecoilState(filteredDeviceDataState);
   const [searchTerm, setSearchTerm] = useState("");
@@ -41,17 +41,16 @@ const SearchInput = () => {
   }, [deviceData, searchTerm]);
 
   if (isLoadingData) {
-    return (
-      <div className={getLoadingContainerClassName(isLoadingData)}>
-        <LoaderComponent />
-      </div>
-    );
+    return null;
   }
+  //Repeated
+  const themeClassName = isDarkMode ? "dark-mode" : "light-mode";
 
   return (
-    <div className="search-field">
+    <div className={`search-field ${themeClassName}`}>
       <div className="search-container">
         <input
+          className={`input ${themeClassName}`}
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}

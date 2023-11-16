@@ -1,5 +1,7 @@
 export enum StringConstants {
-  ShowLess = "SHOW LESS",
-  ShowMore = "SHOW MORE",
-  NotAvailable = "N/A",
+  SHOW_LESS = "SHOW LESS",
+  SHOW_MORE = "SHOW MORE",
+  NOT_AVAILABLE = "N/A",
+  LIGHT_MODE_LABEL = "Light Mode",
+  DARK_MODE_LABEL = "Dark Mode",
 }

@@ -47,4 +47,10 @@ In this project, we've created a user-friendly Railroad Device Monitoring Dashbo
 
 - **Action Row**: The action row allows users to interact with the data. Clicking on the icons within the row changes the state and passes the ID of the selected object to the application for further processing.
 
+- **Search Bar**: We've recently added a search bar functionality to facilitate easy searching through all the data in the table. This enhances the user's ability to quickly find specific information of interest.
+
+- **Switch Toggle Button**: Another recent addition is the switch toggle button, allowing users to change the theme between light and dark modes. This provides a personalized visual experience for users based on their preferences.
+
+- **Show More/Show Less Button in Modal**: In the modal displaying additional properties, we've introduced "Show More" and "Show Less" buttons. This allows users to expand or collapse content for better readability, particularly when dealing with longer data.
+
 - **Additional Properties**: Device-specific additional properties are displayed in a modal for detailed examination. For styling, we utilized Tailwind CSS, and for managing fetched data, we employed Recoil.

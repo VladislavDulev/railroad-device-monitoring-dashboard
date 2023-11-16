@@ -1,5 +1,9 @@
 import { useRecoilValue } from "recoil";
-import { deviceDataState } from "../../state/recoil";
+import {
+  deviceDataState,
+  isDarkModeSelector,
+  themeModeSelector,
+} from "../../state/recoil";
 import { IDeviceData } from "../../constants/interfaces/IDeviceData";
 import MetaContent from "./modalContent/MetaContent";
 import BarrierMessageBatchContent from "./modalContent/BarrierMessageBatchContent";
@@ -7,9 +11,10 @@ import BarrierOpenCloseTimeBatchContent from "./modalContent/BarrierOpenCloseTim
 import { DevicePropEnum } from "../common/enums/DevicePropEnum";
 import CloseButton from "./modalContent/buttons/ExitButton";
 import CancelButton from "./modalContent/buttons/CloseButton";
-import getDisplayName from "../../utils/helpers";
+import getDisplayName, { getColorStyles } from "../../utils/helpers";
 import "./deviceDetailsModal.css";
 import { useEffect, useRef } from "react";
+import { ThemeModeEnum } from "../common/enums/ThemeModeEnum";
 
 interface IDeviceDetailsModal {
   open: boolean;
@@ -22,7 +27,12 @@ const DeviceDetailsModal = ({
   onClose,
   deviceId,
 }: IDeviceDetailsModal) => {
+  const { BARRIER_MESSAGE_BATCH, BARRIER_OPEN_CLOSE_TIME_BATCH, META } =
+    DevicePropEnum;
+
   const devicesData = useRecoilValue(deviceDataState);
+  const currentThemeMode = useRecoilValue(themeModeSelector);
+  const isDarkMode = useRecoilValue(isDarkModeSelector);
 
   const modalRef = useRef<HTMLDivElement | null>(null);
 
@@ -31,6 +41,22 @@ const DeviceDetailsModal = ({
   };
 
   const currentDevice = findDeviceById(deviceId, devicesData);
+
+  const lightModeColors = {
+    header: "text-lg font-black text-gray-800",
+    content: "text-sm text-gray-500",
+  };
+
+  const darkModeColors = {
+    header: "text-lg font-white text-gray-300",
+    content: "text-sm text-gray-700",
+  };
+
+  const colors = getColorStyles(
+    currentThemeMode,
+    lightModeColors,
+    darkModeColors
+  );
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -80,19 +106,16 @@ const DeviceDetailsModal = ({
   const modalContent = Object.keys(currentDevice.lastData.content).map(
     (key) => (
       <div key={key}>
-        <h3 className="text-lg font-black text-gray-800">
-          {getDisplayName(key)}
-        </h3>
-        <div className="text-sm text-gray-500">
-          {key === DevicePropEnum.BARRIER_MESSAGE_BATCH &&
-          barrierMessageBatch ? (
+        <h3 className={colors.header}>{getDisplayName(key)}</h3>
+        <div className={colors.content}>
+          {key === BARRIER_MESSAGE_BATCH && barrierMessageBatch ? (
             <BarrierMessageBatchContent messageContent={barrierMessageBatch} />
-          ) : key === DevicePropEnum.BARRIER_OPEN_CLOSE_TIME_BATCH &&
+          ) : key === BARRIER_OPEN_CLOSE_TIME_BATCH &&
             barrierOpenCloseTimeBatch ? (
             <BarrierOpenCloseTimeBatchContent
               barrierTimeBatch={barrierOpenCloseTimeBatch}
             />
-          ) : key === DevicePropEnum.META && meta ? (
+          ) : key === META && meta ? (
             <MetaContent metaContent={meta} />
           ) : (
             renderValue(currentDevice.lastData.content[key])
@@ -110,9 +133,9 @@ const DeviceDetailsModal = ({
     >
       <div
         ref={modalRef}
-        className={`bg-white rounded-xl shadow p-6 transition-all overflow-y-auto no-scrollbar modal-content ${
-          open ? "scale-100 opacity-100" : "scale-125 opacity-0"
-        }`}
+        className={`rounded-xl shadow p-6 transition-all overflow-y-auto no-scrollbar modal-content ${
+          isDarkMode ? "bg-black text-white" : "bg-white text-gray-800"
+        } ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}`}
       >
         <CloseButton onClose={onClose} />
         <div className="mt-4">{modalContent}</div>

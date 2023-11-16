@@ -1,3 +1,5 @@
+@import "../../index.css";
+
 * {
   font-family: "Ubuntu";
 }
@@ -10,28 +12,52 @@
   background-color: rgba(59, 130, 246, 0.2);
 }
 
+.dark-mode-actions-wrapper {
+  background-color: rgb(35, 49, 78);
+}
+
+.dark-mode-actions-column-header {
+  font-size: 22px;
+  font-weight: 700;
+  font-family: "Ubuntu";
+  color: rgba(59, 130, 246, 1);
+  background-color: rgb(35, 49, 78);
+}
+
 .low-battery-wrapper {
   background-color: rgba(255, 74, 92, 0.2);
 }
 
-.low-battery {
+.low-battery.light-mode {
   background-color: rgba(255, 74, 92);
+}
+
+.low-battery.dark-mode {
+  background-color: rgb(231, 31, 51);
 }
 
 .medium-battery-wrapper {
   background-color: rgba(255, 171, 97, 0.2);
 }
 
-.medium-battery {
+.medium-battery.light-mode {
   background-color: rgba(255, 171, 97);
+}
+
+.medium-battery.dark-mode {
+  background-color: rgb(255, 131, 23);
 }
 
 .high-battery-wrapper {
   background-color: rgba(121, 255, 132, 0.2);
 }
 
-.high-battery {
+.high-battery.light-mode {
   background-color: rgba(121, 255, 132);
+}
+
+.high-battery.dark-mode {
+  background-color: rgb(54, 192, 65);
 }
 
 .no-battery {
